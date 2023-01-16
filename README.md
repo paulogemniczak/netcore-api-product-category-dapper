@@ -1,2 +1,5 @@
-# netcore-api-product-category-dapper
-.NET Core API
+# .NET Core API - Dapper
+
+CRUD Category  
+CRUD Product  
+
