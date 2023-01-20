@@ -10,6 +10,7 @@ using Gemniczak.AppService.Filters;
 namespace Gemniczak.API.Controllers.v1
 {
     [Route("api/v{version:apiVersion}/[controller]")]
+    [ApiVersion("2.0")]
     [Produces("application/json")]
     public class CategoryController : Controller
     {
