@@ -1,5 +1,4 @@
-# .NET Core API - Dapper
+# .NET Core (.NET Core 7) API - Dapper
 
 CRUD Category  
 CRUD Product  
-
