@@ -10,7 +10,7 @@
             "request": "launch",
             "preLaunchTask": "build",
             // If you have changed target frameworks, make sure to update the program path.
-            "program": "${workspaceFolder}/Gemniczak.API/bin/Debug/net6.0/Gemniczak.API.dll",
+            "program": "${workspaceFolder}/Gemniczak.API/bin/Debug/net7.0/Gemniczak.API.dll",
             "args": [],
             "cwd": "${workspaceFolder}/Gemniczak.API",
             "stopAtEntry": false,

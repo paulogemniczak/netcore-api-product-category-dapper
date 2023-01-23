@@ -1,35 +1,29 @@
 using Gemniczak.API;
 using Gemniczak.API.Config;
-using Microsoft.AspNetCore.Mvc.Versioning;
+using Microsoft.AspNetCore.Mvc.ApiExplorer;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddDependencyInjectionConfig();
-builder.Services.AddApiVersioning(opt =>
-{
-	opt.DefaultApiVersion = new Microsoft.AspNetCore.Mvc.ApiVersion(4, 0);
-	opt.AssumeDefaultVersionWhenUnspecified = true;
-	opt.ReportApiVersions = true;
-	opt.ApiVersionReader = ApiVersionReader.Combine(new UrlSegmentApiVersionReader(),
-													new HeaderApiVersionReader("x-api-version"),
-													new MediaTypeApiVersionReader("x-api-version"));
-});
-builder.Logging.AddConsole();
 builder.Services.AddControllers(o =>
 {
-	o.Conventions.Add(new ActionHidingConvention());
+    o.Conventions.Add(new ActionHidingConvention());
 });
+builder.Services.AddApiVersioningConfig();
+builder.Logging.AddConsole();
 builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 builder.Services.AddSwaggerConfig();
 builder.Services.AddAuthenticationConfig(builder.Configuration);
+builder.Services.ConfigureOptions<ConfigureSwaggerOptions>();
 
-var app = builder.Build();
+WebApplication app = builder.Build();
 
 app.Use((context, next) =>
 {
-	context.Request.Scheme = "https";
-	return next(context);
+    context.Request.Scheme = "https";
+    return next(context);
 });
 
 app.UseForwardedHeaders();
@@ -38,8 +32,17 @@ app.UseStaticFiles();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-	app.UseSwaggerConfig();
-	app.UseHttpsRedirection();
+    var apiVersionDescriptionProvider = app.Services.GetRequiredService<IApiVersionDescriptionProvider>();
+
+    app.UseSwagger();
+    app.UseSwaggerUI(options =>
+    {
+        foreach (var description in apiVersionDescriptionProvider.ApiVersionDescriptions)
+        {
+            options.SwaggerEndpoint($"/swagger/{description.GroupName}/swagger.json", description.GroupName.ToUpperInvariant());
+        }
+    });
+    app.UseHttpsRedirection();
 }
 
 app.UseAuthentication();
@@ -48,7 +51,7 @@ app.MapControllers();
 
 if (app.Environment.IsDevelopment())
 {
-	app.Run();
+    app.Run();
 }
 else
 {
@@ -57,6 +60,6 @@ else
 #elif HOMOLOGACAO
   app.Run("http://localhost:5001");
 #else
-	app.Run("http://localhost:5002");
+    app.Run("http://localhost:5002");
 #endif
 }

@@ -9,8 +9,9 @@ using Gemniczak.AppService.Filters;
 
 namespace Gemniczak.API.Controllers.v1
 {
+	[ApiController]
     [Route("api/v{version:apiVersion}/[controller]")]
-    [ApiVersion("2.0")]
+	[ApiVersion("1.0", Deprecated = true)]
     [Produces("application/json")]
     public class CategoryController : Controller
     {
@@ -46,7 +47,7 @@ namespace Gemniczak.API.Controllers.v1
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        [MapToApiVersion("1.0")]
+		[MapToApiVersion("1.0")]
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] CategoryDto model)
         {
@@ -97,7 +98,7 @@ namespace Gemniczak.API.Controllers.v1
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        [MapToApiVersion("1.0")]
+		[MapToApiVersion("1.0")]
         [HttpPut("{id:int}")]
         public async Task<IActionResult> Put(int id, [FromBody] CategoryDto model)
         {
@@ -147,7 +148,7 @@ namespace Gemniczak.API.Controllers.v1
         [Consumes(MediaTypeNames.Application.Json)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        [MapToApiVersion("1.0")]
+		[MapToApiVersion("1.0")]
         [HttpDelete("{id:int}")]
         public async Task<IActionResult> Delete(int id)
         {
@@ -186,7 +187,7 @@ namespace Gemniczak.API.Controllers.v1
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        [MapToApiVersion("1.0")]
+		[MapToApiVersion("1.0")]
         [HttpGet("{id:int}")]
         public async Task<IActionResult> Get(int id)
         {
@@ -230,7 +231,7 @@ namespace Gemniczak.API.Controllers.v1
         [Consumes(MediaTypeNames.Application.Json)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        [MapToApiVersion("1.0")]
+		[MapToApiVersion("1.0")]
         [HttpGet]
         public async Task<IActionResult> Get([FromQuery] CategoryFilterDto filter)
         {

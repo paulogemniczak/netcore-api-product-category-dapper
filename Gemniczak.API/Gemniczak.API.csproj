@@ -9,12 +9,17 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>bin\Debug\Gemniczak.xml</DocumentationFile>
+    <DocumentationFile>bin\Debug\Gemniczak.API.xml</DocumentationFile>
     <NoWarn>1701;1702;CS1591</NoWarn>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Homologacao|AnyCPU'">
-    <DocumentationFile>bin\Debug\Gemniczak.xml</DocumentationFile>
+    <DocumentationFile>bin\Homologacao\Gemniczak.API.xml</DocumentationFile>
+    <NoWarn>1701;1702;CS1591</NoWarn>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Producao|AnyCPU'">
+    <DocumentationFile>bin\Producao\Gemniczak.API.xml</DocumentationFile>
     <NoWarn>1701;1702;CS1591</NoWarn>
   </PropertyGroup>
 
@@ -26,6 +31,7 @@
     <PackageReference Include="Swashbuckle.AspNetCore.Filters" Version="7.0.4" />
     <PackageReference Include="FluentValidation.AspNetCore" Version="11.2.1" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="5.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer" Version="5.0.0" />
   </ItemGroup>
 
   <ItemGroup>
